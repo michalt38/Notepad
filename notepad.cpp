@@ -11,6 +11,11 @@ Notepad::Notepad(QWidget *parent)
     this->setWindowTitle("Untitled");
 
     connect(ui->actionNew, &QAction::triggered, this, &Notepad::onActionNew);
+    connect(ui->actionPrint, &QAction::triggered, this, &Notepad::onActionPrint);
+
+    connect(ui->actionExit, &QAction::triggered, [=](){
+        QApplication::quit();
+    });
 }
 
 void Notepad::onActionNew()
@@ -79,3 +84,39 @@ void Notepad::save(QString fileName)
     file.close();
 }
 
+void Notepad::onActionPrint()
+{
+    QPrinter printer;
+    QPrintDialog pDialog(&printer, this);
+    pDialog.open();
+    if(pDialog.result() == QDialog::Rejected)
+    {
+        return;
+    }
+    ui->textEdit->print(&printer);
+}
+
+void Notepad::on_actionUndo_triggered()
+{
+    ui->textEdit->undo();
+}
+
+void Notepad::on_actionRedo_triggered()
+{
+    ui->textEdit->redo();
+}
+
+void Notepad::on_actionCut_triggered()
+{
+    ui->textEdit->cut();
+}
+
+void Notepad::on_actionCopy_triggered()
+{
+    ui->textEdit->copy();
+}
+
+void Notepad::on_actionPaste_triggered()
+{
+    ui->textEdit->paste();
+}
