@@ -13,7 +13,7 @@ Notepad::Notepad(QWidget *parent)
     connect(ui->actionNew, &QAction::triggered, this, &Notepad::onActionNew);
     connect(ui->actionPrint, &QAction::triggered, this, &Notepad::onActionPrint);
 
-    connect(ui->actionExit, &QAction::triggered, [=](){
+    connect(ui->actionExit, &QAction::triggered, this, [=](){
         QApplication::quit();
     });
 }
